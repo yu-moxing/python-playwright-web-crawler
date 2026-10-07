@@ -12,7 +12,7 @@ root
 │
 ├ <strong>README.md</strong>                项目架构全面分析报告.md
 │
-└ <a href="./核心模块详细设计分析.md">核心模块详细设计分析.md</a>        Core module detailed design
+└ <a href="./核心模块详细设计分析_脱敏版.md">核心模块详细设计分析_脱敏版.md</a>        核心模块详细设计（脱敏版）
 </pre>
 
 ---
@@ -1122,4 +1122,3 @@ image_match  → cv2, numpy
 
 ---
 
-> 报告生成依据：3 个并行 Explore 子代理对项目实际源码的只读扫描（已排除 `.git`、`.idea`、`.ruff_cache`、`backup`、`test`、`tests`、`DEL`、`fingerprint_work`）。所有类名/函数名/文件路径均可在仓库中检索命中。本报告不修改任何源代码。

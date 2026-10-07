@@ -1,0 +1,44 @@
+以下命令，参数里的：--dev 可以替换为：--pro ,
+从：开发环境，切换到：生产环境
+
+启动命令示例：
+----------------------------------------
+main.cate_level 模块
+----------------------------------------
+当当
+python -m main.cate_level --dev p 1001-001 u -1 clli "-1>-1"
+
+shopee_tw
+python -m main.cate_level --dev p 1051-001 u -1 clli "-1>-1"
+
+----------------------------------------
+main.cate_list 模块
+----------------------------------------
+当当
+python -m main.cate_list --dev p 1001-001 u -1 clii "-1>-1" so ut
+python -m main.cate_list --dev p 1001-001 u -1 clii "1-2>2-3" so -1
+
+
+虾皮
+python -m main.cate_list --dev p 1051-001 u 0 clii "22>-1" so "pop"
+python -m main.cate_list --dev p 1051-001 u 0 clii "999>1" so "pop"
+
+python -m main.cate_list --dev p 1051-001 u 0 clii "21>-1" so "pop"
+python -m main.cate_list --dev p 1051-001 u 1 clii "21>-1" so "pop"
+
+python -m main.cate_list --dev p 1051-001 u 0 clii "21>-1" so "ctime"
+python -m main.cate_list --dev p 1051-001 u 1 clii "21>-1" so "ctime"
+
+python -m main.cate_list --dev p 1051-001 u -1 clii "21>-1" so "ctime"
+python -m main.cate_list --dev p 1051-001 u -1 clii "22>-1" so "ctime"
+python -m main.cate_list --dev p 1051-001 u -1 clii "999>1" so "price|asc"
+python -m main.cate_list --dev p 1051-001 u -1 clii "999>2" so "price|asc"
+
+python -m main.cate_list --dev p 1051-001 u -1 clii "1-2>2-3" so "price|asc"
+
+淘宝
+----------------------------------------
+main.item_detail.item_detail 模块
+----------------------------------------
+python -m main.item_detail.item_detail --dev id_p 1051-001 id_0 0  id_i 2
+python -m main.item_detail.item_detail --dev

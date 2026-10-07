@@ -1,0 +1,75 @@
+/* 页面全局，设置 */
+PAGE_ENCODE=UTF-8         /* 页面编码 */
+
+/* Scrapy 项目：settings.py 文件设置，需要更新的值 */
+SCRAPY_SETTING_DOWNLOAD_DELAY = 3	/* 采集延迟时间，程序启动后，更新 settings.py 中 DOWNLOAD_DELAY 的值 */
+SCRAPY_SETTING_RANDOMIZE_DOWNLOAD_DELAY = True	/* 是否激活采集延迟，程序启动后，更新 settings.py 中 RANDOMIZE_DOWNLOAD_DELAY 的值 */
+
+/* ========== 以下起，全是：用户自定义采集配置、规则 ========== */
+
+/* 网站登录入口 */
+HOST_URL=https://movie.douban.com/top250
+/* https://www.example.com/login */
+
+/* 主分类列表（即0级分类）入口 */
+/* 支持 URL>分类名 格式（参考 Java 版 START_POINT 处理） */
+/* TYPE_0_LIST=https://www.example.com/category/women-clothing */
+/* TYPE_0_LIST=https://www.example.com/category/men-clothing */
+/* TYPE_0_LIST=https://www.example.com/category/phone */
+/* TYPE_0_LIST=https://www.example.com/category/laptop */
+TYPE_0_LIST=https://movie.douban.com/explore>选电影
+TYPE_0_LIST=https://movie.douban.com/tv/>选剧集
+/* TYPE_0_LIST=https://movie.douban.com/chart##排行榜 */
+
+/* 1级分类提取规则 */
+TYPE_1_LINK_RULE=css:a.category-item::attr(href)
+TYPE_1_TITLE_RULE=css:a.category-item::text
+TYPE_1_ID_RULE=css:a.category-item::attr(data-id)
+
+/* 1级分类排除字符串（参考 Java 版 FLOOR_NOT_STRING_1） */
+/* 多个排除字符串用 %% 分隔 */
+/* FLOOR_NOT_STRING_1=登录%%注册%%帮助 */
+
+/* 1级分类特殊正则（参考 Java 版 FLOOR_SPECIAL_REGEX_1） */
+/* FLOOR_SPECIAL_REGEX_1= */
+
+/* 2级分类提取规则 */
+TYPE_2_LINK_RULE=css:.sub-category a::attr(href)
+TYPE_2_TITLE_RULE=css:.sub-category a::text
+TYPE_2_ID_RULE=css:.sub-category a::attr(data-id)
+
+/* 2级分类排除字符串 */
+/* FLOOR_NOT_STRING_2=全部%%更多%%其他 */
+
+/* 2级分类特殊正则 */
+/* FLOOR_SPECIAL_REGEX_2= */
+
+/* 3级分类提取规则 */
+TYPE_3_LINK_RULE=css:.third-category a::attr(href)
+TYPE_3_TITLE_RULE=css:.third-category a::text
+TYPE_3_ID_RULE=css:.third-category a::attr(data-id)
+
+/* 3级分类排除字符串 */
+/* FLOOR_NOT_STRING_3= */
+
+/* 3级分类特殊正则 */
+/* FLOOR_SPECIAL_REGEX_3= */
+
+/* 4级分类提取规则（可选，最多支持5级） */
+/* TYPE_4_LINK_RULE=css:.fourth-category a::attr(href) */
+/* TYPE_4_TITLE_RULE=css:.fourth-category a::text */
+/* TYPE_4_ID_RULE=css:.fourth-category a::attr(data-id) */
+
+/* ========== 配置说明 ========== */
+/*
+ * 参考 Java 版 ParseProductSite.java：
+ *   - floor数组定为5，即最大支持5级分类上限
+ *   - START_POINT 支持 URL>分类名 格式解析
+ *   - FLOOR_NOT_STRING_X: 各层排除字符串（多个用 %% 分隔）
+ *   - FLOOR_SPECIAL_REGEX_X: 各层特殊正则表达式
+ *
+ * Python 版变量名对应：
+ *   - Java: floorLinkList[] -> Python: type_0_list (TypeEntry列表)
+ *   - Java: floorNotString[] -> Python: TypeRule.not_string
+ *   - Java: floorSpecialRegex[] -> Python: TypeRule.special_regex
+ */

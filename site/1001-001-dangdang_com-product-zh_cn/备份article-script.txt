@@ -1,0 +1,103 @@
+/* 文章采集配置文件 */
+
+/* 页面全局设置 */
+PAGE_ENCODE=UTF-8
+
+/* Scrapy 项目设置 */
+SCRAPY_SETTING_DOWNLOAD_DELAY = 2
+SCRAPY_SETTING_RANDOMIZE_DOWNLOAD_DELAY = True
+
+/* ========== 文章采集配置 ========== */
+
+/* 网站登录入口 */
+HOST_URL=https://news.example.com/login
+
+/* 文章列表入口（支持 URL>分类名 格式） */
+TYPE_0_LIST=https://news.example.com/tech>科技资讯
+TYPE_0_LIST=https://news.example.com/finance>财经新闻
+
+/* ========== 列表页提取规则 ========== */
+
+/* 1级：文章列表提取规则 */
+TYPE_1_LINK_RULE=css:.article-item a::attr(href)
+TYPE_1_TITLE_RULE=css:.article-item .title::text
+
+/* ========== 详情页提取规则 ========== */
+
+/* 2级：文章详情提取规则 */
+
+/* ===== 共同字段 ===== */
+
+/* 标题（与 main_image/sub_images 对应） */
+TYPE_2_MAIN_TITLE_RULE=css:.article-title::text
+TYPE_2_SUB_TITLE_RULE=css:.article-subtitle::text
+
+/* 图片 */
+TYPE_2_MAIN_IMAGE_RULE=css:.article-cover img::attr(src)
+TYPE_2_SUB_IMAGES_RULE=css:.article-gallery img::attr(src)
+
+/* 内容 */
+TYPE_2_SUMMARY_RULE=css:.article-summary::text
+TYPE_2_DESCRIPTION_RULE=css:.article-content::text
+
+/* 统计数据 */
+TYPE_2_VIEW_COUNT_RULE=css:.article-views::text
+TYPE_2_FAVORITE_COUNT_RULE=css:.article-favorites::text
+TYPE_2_COMMENT_COUNT_RULE=css:.article-comments::text
+
+/* ===== 作者字段（文章专用） ===== */
+
+TYPE_2_AUTHOR_NAME_RULE=css:.author-name::text
+TYPE_2_AUTHOR_ID_RULE=css:.author::attr(data-id)
+TYPE_2_AUTHOR_LINK_RULE=css:.author-link::attr(href)
+
+/* 发布日期 */
+TYPE_2_PUBLISH_DATE_RULE=css:.publish-date::text
+
+/* 其他作者 */
+TYPE_2_OTHER_AUTHOR_NAMES_RULE=css:.co-author .name::text
+TYPE_2_OTHER_AUTHOR_IDS_RULE=css:.co-author::attr(data-id)
+TYPE_2_OTHER_AUTHOR_LINKS_RULE=css:.co-author a::attr(href)
+
+/* ========== 排除规则 ========== */
+
+/* 排除字符串（多个用 %% 分隔） */
+/* FLOOR_NOT_STRING_1=广告%%推广%%赞助 */
+
+/* ========== 配置说明 ========== */
+/*
+ * 文章采集字段说明：
+ *
+ * 【共同字段】（命名规范：main_* / sub_*）
+ *   main_title       - 主标题
+ *   sub_title        - 副标题
+ *   main_image       - 主图（封面图）
+ *   sub_images       - 副图列表（最多5张）
+ *   summary          - 文章总结
+ *   description      - 文章内容/描述
+ *   view_count       - 浏览数
+ *   favorite_count   - 收藏数
+ *   comment_count    - 评论数
+ *
+ * 【作者字段】（文章专用，独立字段）
+ *   author_name      - 作者名
+ *   author_id        - 作者ID
+ *   author_link      - 作者链接
+ *   publish_date     - 发布日期
+ *   other_author_names  - 其他作者名列表
+ *   other_author_ids    - 其他作者ID列表
+ *   other_author_links  - 其他作者链接列表
+ *
+ * 【溯源字段】（自动填充）
+ *   origin_cate_id       - 来源分类ID
+ *   origin_cate_name     - 来源分类名
+ *   origin_cate_page     - 来源分类页页码
+ *   origin_author_id     - 来源作者ID
+ *   origin_author_page   - 来源作者页页码
+ *   origin_user_index    - 当前任务第N条
+ *   origin_url           - 原始链接
+ *   origin_platform      - app/web
+ *   origin_crawl_time    - 采集时间
+ *
+ * 运行命令：python main_content.py article-script.txt
+ */

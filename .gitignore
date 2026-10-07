@@ -1,0 +1,158 @@
+# ==============================
+# Git
+# ==============================
+
+# Git internal directory
+.git/
+
+# ==============================
+# IDE
+# ==============================
+
+# PyCharm / JetBrains
+.idea/
+
+# Claude Code
+.claude/
+
+# ==============================
+# Python
+# ==============================
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+
+# ==============================
+# Test / temporary directories
+# ==============================
+
+# Test directories
+test/
+tests/
+
+# Temporary / backup directories
+backup/
+
+# Old / deleted files
+DEL/
+
+# Browser fingerprint temporary work files
+fingerprint_work/
+
+# ==============================
+# Python tool cache
+# ==============================
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ==============================
+# Environment / secrets
+# ==============================
+
+# Environment variables
+.env
+.env.*
+
+# Project environment configs
+env/*.yaml
+
+# ==============================
+# Logs
+# ==============================
+
+# All log files
+*.log
+
+# All logs directories
+logs/
+
+# Runtime logs inside item/site projects
+item/*/logs/
+site/*/logs/
+
+# ==============================
+# Runtime data
+# ==============================
+
+# Item runtime data
+item/*/cookies/
+item/*/input/
+item/*/output/
+item/*/user/
+
+# Site runtime data
+site/*/input/
+site/*/output/
+site/*/user/
+
+# All cookies directories
+cookies/
+
+# ==============================
+# Project-specific sensitive files
+# ==============================
+
+# script.txt in any script directory
+**/script/script.txt
+
+# user_pool.xlsx in any user directory
+# **/user/user_pool.xlsx
+
+# Site risk-control links
+各站点风控链接收集.txt
+
+# Site-specific crawler implementation
+processor/cate_list/cate_list_processor.py
+processor/cate_level/cate_level_processor.py
+processor/cate_level/cate_level_collector.py
+
+# ==============================
+# Playwright
+# ==============================
+
+playwright-report/
+test-results/
+
+# ==============================
+# Project directories not published to GitHub
+# ==============================
+
+# Resource configuration / runtime resources
+resource/
+
+# Browser / user / IP / fingerprint resource pool
+pool/
+
+# Prompt / AI working files
+prompt/
+
+# Docs files
+docs/
+
+# Mini category data
+mini_cate/
+
+# Exported data
+export/
+
+# Config loader implementations
+config/loader/
+
+# Development / internal tools
+tools/
+
+# ==============================
+# OS
+# ==============================
+
+.DS_Store
+Thumbs.db
+desktop.ini

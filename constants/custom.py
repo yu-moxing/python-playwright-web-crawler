@@ -1,0 +1,7 @@
+"""
+客户导出的：常量
+"""
+
+CUSTOM_COUNT = 5
+MAX_CUSTOM_INDEX = CUSTOM_COUNT - 1
+MIN_CUSTOM_INDEX = 0

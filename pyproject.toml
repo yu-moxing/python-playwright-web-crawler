@@ -1,0 +1,27 @@
+[tool.ruff]
+
+line-length = 120
+
+target-version = "py310"
+
+exclude = [
+    "venv",
+    ".venv",
+    "__pycache__",
+    ".pytest_cache",
+    "test",
+    "*_backup.py",
+    "*_copy.py",
+]
+
+
+[tool.ruff.lint]
+
+select = [
+    "F",
+    "I",
+]
+
+ignore = [
+    "UP045",
+]

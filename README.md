@@ -37,18 +37,17 @@ root
 
 ## 目录
 
-一、[项目概述](#overview)
+一. [项目概述](#overview)
 
-二、[总体架构设计](#architecture)
+二. [总体架构设计](#architecture)
 
-三、[核心模块与分层分析](#modules)
+三. [核心模块与分层分析](#modules)
 
-四、[数据架构与项目结构](#data)
+四. [数据架构与项目结构](#data)
 
-五、[业务、风控与模块关系](#business)
+五. [业务、风控与模块关系](#business)
 
-六、[架构评价、展望与确认](#summary)
-
+六. [架构评价、展望与确认](#summary)
 
 ---
 

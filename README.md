@@ -17,58 +17,133 @@ root
 
 ---
 
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3.x-blue?logo=python" />
+  <img src="https://img.shields.io/badge/Playwright-Web%20Automation-2EAD33?logo=playwright" />
+  <img src="https://img.shields.io/badge/Redis-Cache-red?logo=redis" />
+  <img src="https://img.shields.io/badge/MongoDB-Database-green?logo=mongodb" />
+  <img src="https://img.shields.io/badge/OpenCV-Image%20Processing-blue?logo=opencv" />
+  <img src="https://img.shields.io/badge/openpyxl-Excel%20Processing-217346" />
+</p>
+
+---
 
 # Python Playwright Web Crawler 项目架构全面分析报告
 
-> 本报告基于对 `\python-playwright-web-crawler` 实际源码的只读扫描，排除部分非关键目录。所有结论以代码为准。
+> **注：** 本报告于 **2026 年 10 月** 
+   使用 Claude Code 对 **2026 年 6 月–2026 年 9 月 开发的《Python + Playwright Web 通用爬虫》项目源码**进行完整阅读与分析后自动生成。所有结论以代码为准。
 	
 ---
 
-## 导读：未公开的文件及目录
+## 目录
 
-出于知识产权保护，以下核心文件、目录及相关实现未包含在本公开仓库中。
+一、[项目概述](#overview)
+二、[总体架构设计](#architecture)
+三、[核心模块与分层分析](#modules)
+四、[数据架构与项目结构](#data)
+五、[业务、风控与模块关系](#business)
+六、[架构评价、展望与确认](#summary)
 
-### 1. 采集项目配置脚本
+---
+
+<a id="overview"></a>
+# 一、项目概述
+
+---
+
+## 1. 项目简介
+
+一个使用 Python 和 Playwright 构建的配置驱动型网络爬行工具，支持多用户、分布式采集和断点续传。
+
+---
+
+## 2. 演示视频
+
+### 2.1 启动及运行
+
+演示内容：
+- CLI命令行启动
+- 运行时输出
+- Playwright运行时
+
+（此视频：以 shopee.tw 为例子）
+
+<p align="center">
+点击图片观看完整演示视频：
+</p>
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=ONtpRSDPfqg">
+    <img src="https://img.youtube.com/vi/ONtpRSDPfqg/maxresdefault.jpg" width="800">
+  </a>
+</p>
+
+
+### 2.2 配置及数据库
+
+演示内容：
+- 脚本配置文件	（路径：\site\[采集项目目录]\script\script.txt ）
+- 分类树		（路径：\site\[采集项目目录]\output\cate_level_index\cate_level_index.txt ）
+- 分类链接『含分类路径』	（路径：\site\[采集项目目录]\output\cate_level_link\cate_level_link.txt ）
+
+- Redis
+- MongoDb
+
+（此视频：以 shopee.tw 为例子）
+
+<p align="center">
+点击图片观看完整演示视频：
+</p>
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=LYvYUWEOshQ">
+    <img src="https://i9.ytimg.com/vi_webp/LYvYUWEOshQ/mq3.webp?sqp=COSQqdYG-oaymwEmCMACELQB8quKqQMa8AEB-AHUBoAC4AOKAgwIABABGE8gVihlMA8=&rs=AOn4CLCGxPzw2lCPsHI1T-jOgdAAKxj3JA" width="800">
+  </a>
+</p>
+
+---
+
+## 3. 脱敏说明
+
+出于部分代码及配置保护，以下核心文件、目录及相关实现未包含在本公开仓库中。
+
+### 3.1 采集项目配置脚本
 
 `/script/script.txt`
 定义采集项目的执行流程及具体采集行为。
 
-### 2. 核心采集逻辑
+### 3.2 核心采集逻辑
 
 `processor/cate_list/cate_list_processor.py`
 `processor/cate_level/cate_level_processor.py`
 `processor/cate_level/cate_level_collector.py`
 包含分类层级采集和分类列表采集的核心逻辑。
 
-### 3. 浏览器及网络资源
+### 3.3 浏览器及网络资源
 
 `resource/`
 包含代理 IP、浏览器指纹、浏览器启动路径及用户文件夹等资源。
 
-### 4. 公共资源池
+### 3.4 公共资源池
 
 `pool/`
 包含采集框架使用的 `.xlsx` 格式公共资源池文件。
 
-### 5. 分类树及自动分类算法
+### 3.5 分类树及自动分类算法
 
 `mini_cate/`
 包含 2009–2011 年《伯乐购物搜索》Java 版迁移至 Python 版的分类树维护及商品自动分类算法，属于核心知识产权。
 
-### 6. 采集项目配置加载器
+### 3.6 采集项目配置加载器
 
 `config/loader/`
 负责加载和解析 `/script/script.txt`，属于配置驱动采集架构的核心实现。
 
 > **说明：** 本仓库主要用于技术作品展示和工程能力演示，并非完整、可直接运行的项目发行版本。原系统的完整运行依赖于上述未公开内容。
 
-
 ---
 
-## 1. 项目概述
-
-一个使用 Python 和 Playwright 构建的配置驱动型网络爬行工具，支持多用户、分布式采集和断点续传。
-
+## 4. 技术栈
 
 技术栈（来自 `requirements.txt`）：
 
@@ -90,7 +165,7 @@ root
 
 ---
 
-## 2. 项目定位
+## 5. 项目定位
 
 项目解决的核心问题是：**对多个异构电商/内容站点，以同一套框架 + 每站点一份 `script.txt` 配置 + 每站点一套 `login/*.py` 站点登录代码，完成「分类树采集 → 列表页内容采集 → 商品/文章详情采集」三段式抓取**，并在此过程中统一处理用户隔离、浏览器隔离、指纹注入、代理 IP、风控滑块、去重与持久化。
 
@@ -103,7 +178,12 @@ root
 
 ---
 
-## 3. 项目总体架构
+<a id="architecture"></a>
+# 二、总体架构设计
+
+---
+
+## 1. 项目总体架构
 
 实际分层（代码证实，非目录臆测）：
 
@@ -141,7 +221,7 @@ Database (Redis 状态缓存 + MongoDB 持久真相源) / Export (fileio/batch �
 
 ---
 
-## 4. 项目目录架构
+## 2. 项目目录架构
 
 实际目录（已排除 `TEST_DIR_NAMES`）：
 
@@ -205,15 +285,15 @@ python-playwright-web-crawler/
 ├── pyproject.toml        ruff 配置
 ├── requirements.txt
 ├── scrapy.cfg            Scrapy 遗留配置
-├── README.md             已过时（描述旧 user.txt/type-script.txt 布局）
+├── README.md             项目架构全面分析报告（已重写：分组编号 + 交叉引用）
 └── .gitignore
 ```
 
 ---
 
-## 5. 核心分层架构
+## 3. 核心分层架构
 
-### 5.1 CLI / Runner 层
+### 3.1 CLI / Runner 层
 
 - 目录：`main/`、`main/cli/`、`main/cli/item_detail/`
 - 核心类/函数：
@@ -228,7 +308,7 @@ python-playwright-web-crawler/
 - 上游：命令行；下游：Config / Resource / Processor。
 - 输入：命令行 `params`（`p`/`u`/`clli`/`so` 或 `id_p`/`id_u`/`id_i`）；输出：`CateRunArgs` / `ItemRunArgs` + 已加载的 `ScriptConfig`/`PoolData`。
 
-### 5.2 Config 层
+### 3.2 Config 层
 
 - 目录：`config/loader/`、`config/model/`、`config/context/`、`config/application/`、`config/database/`、`config/backfill/`
 - 核心类/函数：
@@ -246,7 +326,7 @@ python-playwright-web-crawler/
 - 上游：CLI；下游：Resource / Browser / Parser / Processor / Database。
 - 输入：`script.txt` + `env/*.yaml` + 站点目录名；输出：`ScriptConfig`/`ProjectConfig`/`AppConfig`/`program_vars`。
 
-### 5.3 Resource 层
+### 3.3 Resource 层
 
 - 目录：`resource/`
 - 核心类/函数：`PoolLoader`（`load_all`/`load_user_pool`/`load_browser_pool`/`load_fingerprint_pool`/`load_ip_pool`/`validate_user_browser`）、`ResourceMapper`（`validate_constraints`/`build_mapping`/`validate_user_ip`）、`ResourceAllocator`（`allocate`/`allocate_all`/`allocate_no_user`/`_select_proxy`）、`BrowserSessionFactory`（`create_context`/`close_all`/`get_context`/`close_context`）。
@@ -258,7 +338,7 @@ python-playwright-web-crawler/
 - 上游：CLI；下游：Browser/Page。
 - 输入：`pool/*.xlsx` + `user_pool.xlsx`；输出：`ResourceContext` + Playwright `BrowserContext`。
 
-### 5.4 Browser / Page 层
+### 3.4 Browser / Page 层
 
 - 目录：`resource/browser_session_factory.py`、`page/`
 - 核心类/函数：`BrowserSessionFactory.create_context`、`page/page_navigator.py: PageNavigator`（`load`/`_navigate`/`scroll_to_load_more`）、`page/page_ready_checker.py: PageReadyChecker.wait`。
@@ -269,7 +349,7 @@ python-playwright-web-crawler/
 - 输入：URL + `ResourceContext` + `PageItem`；输出：Playwright `Page`。
 - 关键设计：`PageNavigator` 禁止 `self.page` 单例（注释 line 113），Page 由调用方持有，防多用户/多 Processor 串扰；BrowserContext 按 `user_data_dir` 懒缓存。
 
-### 5.5 Parser 层
+### 3.5 Parser 层
 
 - 目录：`parser/`
 - 核心类/函数：
@@ -283,27 +363,27 @@ python-playwright-web-crawler/
 - 输入：Playwright `Page` / `Locator` + 节点配置；输出：`DataItem` 列表。
 - 注：`parser/item_detail/` 为空目录，ITEM_DETAIL 阶段尚未实现解析层。
 
-### 5.6 Processor 层（编排层）
+### 3.6 Processor 层（编排层）
 
 - 目录：`processor/cate_level/`、`processor/cate_list/`、`processor/item_detail/`、`processor/common/`、`processor/unit/`、`processor/content/`（空）
-- 核心类/函数见第 11 节。
+- 核心类/函数见 三.5 Parser / Processor 架构分析。
 - 职责（`CateLevelProcessor` docstring 自述）：流程编排层，只负责「初始化组件 → 登录/页面准备 → 启动 Collector → 采集结束 → Flush → 关闭 Page」，具体业务交给对应组件（Parser/Filter/Builder/ItemHandler/DB 适配器）。
 - 上游：Runner；下游：Parser / DB / fileio。
 - 输入：`ScriptConfig` + `ResourceContext` + `PageNavigator`；输出：写入 `output/*.txt` / MongoDB / Redis。
 
-### 5.7 Database / Export 层
+### 3.7 Database / Export 层
 
 - 目录：`database/mongodb/`、`database/redis/`、`database/postgresql/`（空）、`fileio/`、`export/`
-- 核心类/函数见第 13 节。
+- 核心类/函数见 四.2 MongoDB / Redis 数据架构。
 - 职责：Redis 状态缓存 + 去重；MongoDB 内容持久化 + 自增序列；fileio 批量输出 TXT/CSV/JSON/Excel/Mongo。
 - 上游：Processor；下游：外部存储。
 - 输入：`ContentDataRecord` / 检查点 / 去重键；输出：Redis 键 / MongoDB 文档 / 输出文件。
 
 ---
 
-## 6. 核心运行链路
+## 4. 核心运行链路
 
-### 6.1 CLI 启动链
+### 4.1 CLI 启动链
 
 以 CATE_LEVEL 为例（`main/cate_level.py: main()`）：
 
@@ -326,7 +406,7 @@ CATE_LIST 入口 `main/cate_list.py` 复用 `runner_base.load_configs`/`setup_di
 
 ITEM_DETAIL 入口 `main/item_detail/item_detail.py` 走独立 `parse_item_cli_args()`（参数 `id_p`/`id_u`/`id_i`，非 `p`/`u`/`clli`），经 `ItemProjectConfigLoader` 定位、`ItemUserPoolLoader` 加载用户、`_resolve_item_users`/`_select_item_urls` 解析用户与 URL 子集、`parse_item_detail_script_config` 加载配置，最后 `run_item_detail(...)`。
 
-### 6.2 配置加载链
+### 4.2 配置加载链
 
 ```
 script.txt 原文
@@ -356,7 +436,7 @@ script.txt 原文
 
 item_detail 不复用 `parse_script_config`（其键不在该分发表内），用独立的 `parse_item_detail_script_config` 产出 `ItemDetailScriptConfig`（字段如 `cookie_domain`/`home_url`/`access_home_page`/`headless`/`network_response_*`/`user_level_ranges`）。
 
-### 6.3 Resource 资源链
+### 4.3 Resource 资源链
 
 ```
 PoolLoader.load_all(project_id, project_dir, browser_type)
@@ -389,7 +469,7 @@ PoolLoader.load_all(project_id, project_dir, browser_type)
 
 item_detail 资源链不复用 `ResourceAllocator`，用 `build_item_resource_context(item_user, pool_loader, project_config, logger)`：因 item_detail 按 `browser_index` 查指纹（而非 `fingerprint_index`），复用 `PoolLoader` 三池 + `resolve_ip_index` + 数据类。
 
-### 6.4 Browser / Page 链
+### 4.4 Browser / Page 链
 
 ```
 BrowserSessionFactory.create_context(ResourceContext, headless)
@@ -411,7 +491,7 @@ PageNavigator.scroll_to_load_more(page, duration_ms, stable_rounds=2)
 
 页面生命周期归属：**Runner 拥有 `BrowserSessionFactory`**（创建 + `close_all()` in finally）；**Processor 拥有工作 Page**（`page_navigator.load` 取得，`finally` 关闭）；`PageNavigator` 仅持有 Context 引用，禁止单例 Page。
 
-### 6.5 Parser 链
+### 4.5 Parser 链
 
 ```
 Page / Locator (来自 PageNavigator.load / Collector._open)
@@ -428,7 +508,7 @@ Page / Locator (来自 PageNavigator.load / Collector._open)
 
 `CateListParser.parse_cate_list_items` 返回 `(valid, invalid)`，逐 unit（`child_block==1`）定位 father 节点 → `_parse_cate_list_normal_nodes` 三阶段：COMMON 多值抽取 + RAW_COMMON id/tags → PRODUCT（仅 `content_type=="product"`）→ `_COMBINE` 节点替换（`config.context.node_var.replace_node_vars`）→ 多值展开为单值记录。`link` 字段经 `urljoin(page_url, value)` 绝对化。`filter_cate_list_items` 对记录施加四规则过滤。
 
-### 6.6 Processor / Runner 链
+### 4.6 Processor / Runner 链
 
 Runner（同步门面，内部 `asyncio.run`）：
 
@@ -449,7 +529,7 @@ Processor（编排，`CateLevelProcessor` docstring 自述）：
 
 **Processor 在本项目中承担的职责结论**：流程编排层。它不做 DOM 抽取（Parser）、URL 规范化（LinkNormalizer）、URL 业务规则（LinkBuilder）、过滤（Filter）、去重（DuplicateChecker）、写库（ItemHandler/Writer）、统计（Stats）。这些职责由其编排的子组件承担。
 
-### 6.7 Database 链
+### 4.7 Database 链
 
 ```
 CateListProcessor
@@ -468,7 +548,7 @@ CateListProcessor
 
 项目隔离：MongoDB 按**数据库名**（`MongoDBUtil.__init__(client, database_name)` 绑定 `self.database`）；Redis 按 **head_key 前缀**（`RedisUtil.make_key(head_key, key, separator=":")`，但 `ContentRedis` 绕过 `RedisUtil` 前缀逻辑，自行拼全键）。
 
-### 6.8 Export 链
+### 4.8 Export 链
 
 ```
 Processor / ItemHandler
@@ -486,9 +566,14 @@ Processor / ItemHandler
 
 ---
 
-## 7. 核心模块分析
+<a id="modules"></a>
+# 三、核心模块与分层分析
 
-### 7.1 `config/loader/script_config.py` —— 配置分发中心
+---
+
+## 1. 核心模块分析
+
+### 1.1 `config/loader/script_config.py` —— 配置分发中心
 
 - 目录：`config/loader/`
 - 核心职责：`script.txt` → `ScriptConfig` 的总调度与校验。
@@ -498,7 +583,7 @@ Processor / ItemHandler
 - 扩展方式：新增配置段需在 `_process_config_item` 前缀分发表加分支 + 新建 loader + 新建 model。
 - 重要程度：极高（配置层是整个框架的神经中枢）。
 
-### 7.2 `resource/` —— 资源四层绑定
+### 1.2 `resource/` —— 资源四层绑定
 
 - 目录：`resource/`
 - 核心职责：资源加载、约束校验、运行期分配、BrowserContext 创建。
@@ -509,7 +594,7 @@ Processor / ItemHandler
 - 扩展方式：新增浏览器类型扩展 `BROWSER_TYPE_NAMES` 与池 Excel 模板。
 - 重要程度：极高（决定运行期隔离质量）。
 
-### 7.3 `processor/cate_list/cate_list_processor.py` —— CATE_LIST 编排核心
+### 1.3 `processor/cate_list/cate_list_processor.py` —— CATE_LIST 编排核心
 
 - 目录：`processor/cate_list/`
 - 核心职责：列表页内容采集编排，含分页、风控检测、三层去重、写库。
@@ -519,7 +604,7 @@ Processor / ItemHandler
 - 扩展方式：新增内容类型扩展 `_collect_cate_list_per_page` 的 record 构建分支。
 - 重要程度：极高（CATE_LIST 是内容采集的主战场）。
 
-### 7.4 `processor/cate_level/cate_level_collector.py` —— 类目树遍历
+### 1.4 `processor/cate_level/cate_level_collector.py` —— 类目树遍历
 
 - 目录：`processor/cate_level/`
 - 核心职责：5 层类目树递归遍历，产出 `floor_link_list`。
@@ -529,7 +614,7 @@ Processor / ItemHandler
 - 扩展方式：层级扩展由 `MAX_CATE_LEVEL_INDEX=4` 约束。
 - 重要程度：高（CATE_LEVEL 的核心算法）。
 
-### 7.5 `parser/cate_list/cate_list_parser.py` —— 列表解析
+### 1.5 `parser/cate_list/cate_list_parser.py` —— 列表解析
 
 - 核心职责：按 unit/normal node 规则从列表页 DOM 抽取记录并展开多值为单值。
 - 核心类/函数：`CateListParser.parse_cate_list_items`、`_parse_cate_list_normal_nodes`、`_extract_cate_list_node_values`、`_parse_cate_list_combine_values`、`CateListParsedItem`、`_reset_item_is_parsed`、`_clean`。
@@ -537,7 +622,7 @@ Processor / ItemHandler
 - 关键数据：`_COMMON_FIELDS`/`_PRODUCT_FIELDS` 元组、`node_vars`（`_COMBINE` 替换上下文）。
 - 重要程度：高。
 
-### 7.6 `database/mongodb/content_mongodb.py` 与 `database/redis/content_redis.py` —— 内容双层存储
+### 1.6 `database/mongodb/content_mongodb.py` 与 `database/redis/content_redis.py` —— 内容双层存储
 
 - 核心职责：MongoDB 为 CONTENT 真相源（分片集合）；Redis 为 CONTENT 去重缓存（7 天 TTL）。
 - 核心函数：`ContentMongoDB._build_collection_name`/`get_batch`/`set_batch`、`ContentRedis._build_head_key`/`get_batch`/`set_batch`。
@@ -545,7 +630,7 @@ Processor / ItemHandler
 - 关键数据：md5 `_id`、`content_collection_hash_length`、`content_default_ttl`（默认 604800s）。
 - 重要程度：极高（去重与持久化的交汇点）。
 
-### 7.7 `mini_cate/cate_level_index_normalizer.py` —— 类目归一算法
+### 1.7 `mini_cate/cate_level_index_normalizer.py` —— 类目归一算法
 
 - 核心职责：Java 移植的 `TypeProcessor` 算法，将站点异构类目路径归一到 5 级标准索引（含 `OTHER_CATE_ID=999`「其他」兜底）。
 - 核心类/函数：`CateLevelIndexNormalizer.get_normal_cate`/`close_and_save`/`sort_cate_list`/`split_compare`/`_match_existing_cate`/`_ensure_other_cate`/`reset`。
@@ -555,12 +640,12 @@ Processor / ItemHandler
 
 ---
 
-## 8. 配置驱动架构分析
+## 2. 配置驱动架构分析
 
 代码证实的配置驱动特征：
 
 1. **站点目录名即元数据**：`{main_id}-{sub_id}-{site_name}-{content_type}-{language}` 由 `ProjectConfigLoader._parse_project_dir_name` 解析为 `ProjectConfig` 字段与 `program_vars`。
-2. **`script.txt` 单文件配置全站点**：经 `parse_script_config` 分发到 16 个 `*Item` 模型；前缀分发表见 6.2。
+2. **`script.txt` 单文件配置全站点**：经 `parse_script_config` 分发到 16 个 `*Item` 模型；前缀分发表见 二.4.2 配置加载链。
 3. **三层变量替换**：`@[NAME]`（`script_constant`）、`@{NAME}`（`script_var`）、`${PRO_*}`（`pro_var`）。`DEFERRED_PROGRAM_VARS = {"PRO_CATE_LEVEL_SORT_FIELD", "PRO_CATE_LEVEL_SORT_ORDER"}` 在运行期由 `build_sort_program_vars(field, order)` 解析。
 4. **content_type 多态**：`ScriptConfig.get_cate_list_item()`/`get_detail_item()` 按 `content_type`（product/article）切换分支模型。
 5. **节点配置回填**：`config/backfill/node_config_backfill.py` 在解析后回填 `UnitNodeConfig.child_node_list` → 子 `NormalNodeConfig.father_css/father_xpath`，并做 `validate_layer_default_values`/`validate_layer_filters`/`validate_unit_child_filters`。
@@ -571,9 +656,9 @@ Processor / ItemHandler
 
 ---
 
-## 9. Resource 资源架构分析
+## 3. Resource 资源架构分析
 
-见 6.3。补充：
+见 二.4.3 Resource 资源链。补充：
 
 - `BrowserSessionFactory` 反自动化启动参数：`--disable-blink-features=AutomationControlled`、`--no-first-run`、`--force-webrtc-ip-handling-policy=disable_non_proxied_udp`（防 WebRTC IP 泄漏）等。
 - 指纹对齐：`_parse_fingerprint_profile` 取 `platform`/`languages`，`_parse_chrome_version` 取 `__fp.chromeVersion`，`_parse_screen_profile` 取 `__fp.screen`（availWidth/availHeight/dpr）；据此对齐 UA、`Sec-Ch-Ua`、`Accept-Language`、`locale`、`timezone_id`（`_LOCALE_TIMEZONE` 映射）。
@@ -583,16 +668,18 @@ Processor / ItemHandler
 
 ---
 
-## 10. Browser / Page 架构分析
+## 4. Browser / Page 架构分析
 
-见 6.4。补充：
+### 4.1 页面加载、就绪与滚动
+
+见 二.4.4 Browser / Page 链。补充：
 
 - `PageNavigator` 构造参数全部来自 `script_config.system`（页面加载）与 `script_config.page`（`PageItem`）：`headless`、`max_retries`、`ready_check_enabled`、`page_goto_timeout`、`timeout`、`network_idle_enabled`、`network_idle_timeout`、`page_item`。
 - `PageReadyChecker.wait` 顺序：可选 `networkidle`（异常吞掉）→ 必选 `wait_for_selector(ready_selector)`。
-- `scroll_to_load_more` 终止条件详见 6.4，受 `constants/browser_const.py` 常量约束。
+- `scroll_to_load_more` 终止条件详见 二.4.4 Browser / Page 链，受 `constants/browser_const.py` 常量约束。
 - `PageNavigator` 禁 `self.page` 单例的设计意图（注释 line 113）：避免多 Processor / 多用户共享同一 Page 造成状态污染。
 
-### 10.2 Cookie / 登录状态管理
+### 4.2 Cookie / 登录状态管理
 
 Cookie 是登录态的载体，本项目的 Cookie 管理分三类场景：
 
@@ -611,7 +698,7 @@ Cookie 是登录态的载体，本项目的 Cookie 管理分三类场景：
 **登录态来源**
 
 - item_detail 不走账号密码登录，登录态完全来自注入 cookies；`ItemDetailProcessor.login` 仅在 `script_config.access_home_page` 为真时加载首页（`page_type="HOME"`）+ 滚动以激活会话。
-- cate 侧登录由站点代码承担（站点能力，见 §17）：`site/<id>/login/{host_login,page_login,login_checker,login_slider,login_verify,image_match}.py`；`LoginChecker.is_logged_in(page)` 校验登录态。
+- cate 侧登录由站点代码承担（站点能力，见 五.2 异常/重试/风控）：`site/<id>/login/{host_login,page_login,login_checker,login_slider,login_verify,image_match}.py`；`LoginChecker.is_logged_in(page)` 校验登录态。
 
 **Cookie 与 BrowserContext 的关系**
 
@@ -624,16 +711,16 @@ Cookie 是登录态的载体，本项目的 Cookie 管理分三类场景：
 
 ---
 
-## 11. Parser / Processor 架构分析
+## 5. Parser / Processor 架构分析
 
-### 11.1 Parser 双层结构
+### 5.1 Parser 双层结构
 
 - 底层 `SelectorParser`：仅做 DOM 原语（`all_inner_texts` / 属性 `evaluate_all`）。
 - 上层 `FieldExtractor`：四后缀规则 + 正则后处理，被 `CateLevelParser`/`CateListParser` 复用。
 - 业务子层 `parser/cate_level/`、`parser/cate_list/`：按 `NormalNodeConfig` 与 `UnitNodeConfig` 编排多节点抽取。
 - `parser/item_detail/` 空目录：ITEM_DETAIL 阶段解析未实现。
 
-### 11.2 Processor 编排模式
+### 5.2 Processor 编排模式
 
 每业务类型一个 Processor + 一组子组件：
 
@@ -645,11 +732,11 @@ Cookie 是登录态的载体，本项目的 Cookie 管理分三类场景：
 
 `processor/common/duplicate_checker.py: DuplicateChecker` 提供通用去重（`seed`/`is_duplicate`/`add`/`check_and_add`/`clear`），被 `CateLevelCollector`（页内去重）与 `CateLevelItemHandler`（输出层去重）复用。`processor/common/link_id_config.py` 提供 `get_level_link_id_regex`/`extract_link_id`。`processor/unit/unit_filter.py: UnitFilter` 包装 `UnitNodeConfig` 提供 `has_selector`/`use_css`/`use_xpath`/`is_enable`。
 
-### 11.3 Network Response 拦截（item_detail）
+### 5.3 Network Response 拦截（item_detail）
 
 > 本节区分「现状」与「架构计划」。现状部分以代码为准；计划部分依据 loader 注释与用户确认的近期实现方向，**代码尚未落地**，不作现状陈述。
 
-#### 11.3.1 现状（代码确认：config-only，非功能性）
+#### 5.3.1 现状（代码确认：config-only，非功能性）
 
 配置侧 `config/model/item_detail/item_detail_item.py: ItemDetailScriptConfig`（lines 53-63）声明 4 个 `network_response_*` 字段：
 
@@ -680,7 +767,7 @@ network_response_json_nodes: str = ""
 
 现状结论：**Network Response 拦截在当前代码中仅为配置占位，无任何运行期消费方，非功能性。** `docs/Python-PlayWright-Web-项目总结.md:134` 亦明确佐证「network response 的配置也只进入模型」。
 
-#### 11.3.2 架构计划（未实现，文档先行）
+#### 5.3.2 架构计划（未实现，文档先行）
 
 依据 loader 注释 + 用户确认的近期实现方向。下列内容为**计划**，代码尚未落地：
 
@@ -694,18 +781,23 @@ network_response_json_nodes: str = ""
   - 具体方案待实现时确定，本报告仅记录设计意图。
 - **结果去向（计划）**：拦截到的 JSON 节点数据并入 item_detail 解析产物，最终经 `ContentRecordBuilder`（item_detail 分支待建）进入 `ContentDataRecord.content: Dict[str, Any]`。当前 `parser/item_detail/` 为空目录、`ItemDetailProcessor` 仅导航滚动，此「拦截 → 解析 → 持久化」链路待打通。
 
-#### 11.3.3 与其他业务类型的关系
+#### 5.3.3 与其他业务类型的关系
 
 - 该机制仅出现在 item_detail 配置侧（`ItemDetailScriptConfig`）；CATE_LEVEL/CATE_LIST 的 `ScriptConfig` 无 `network_response_*` 字段。
 - 设计上与 `parser/item_detail/`（待建）互为补充：DOM 抽取与网络响应拦截是 item_detail 数据采集的两条互补通道。
 
 ---
 
-## 12. 数据模型架构
+<a id="data"></a>
+# 四、数据架构与项目结构
+
+---
+
+## 1. 数据模型架构
 
 三层 `@dataclass`：
 
-### 12.1 Config Model（`config/model/`）—— 配置层
+### 1.1 Config Model（`config/model/`）—— 配置层
 
 解析 `script.txt` 的产物，描述「怎么抽」：
 
@@ -716,7 +808,7 @@ network_response_json_nodes: str = ""
 - `browser/BrowserItem`、`login/LoginItem`、`risk/RiskItem`、`system/SystemItem`、`page/PageItem`、`redis/RedisItem`、`mongodb/MongodbItem`
 - `item_detail/item_detail_item.py: ItemDetailScriptConfig`、`item_detail/item_user_config.py: ItemUserConfig`
 
-### 12.2 Data Model（`data/model/`）—— 采集结果层
+### 1.2 Data Model（`data/model/`）—— 采集结果层
 
 描述「抽到了什么」，无 CSS/XPath，无持久化职责：
 
@@ -727,7 +819,7 @@ network_response_json_nodes: str = ""
 - `data/loader/cate_level/`: `CateLevelIndexDataLoader.load`、`CateLevelLinkDataLoader.load`（回读 .txt 输出为 DataItem）
 - `data/backfill/cate_level_link_data_backfill.py: CateLevelLinkDataBackfill.backfill`（`cate_level_link.txt` 不持久化 `cate_ids_path`/`cate_links_path`，由 index 反推回填）
 
-### 12.3 Data Record（`data/model/data_record/content_data_record.py`）—— 持久化层
+### 1.3 Data Record（`data/model/data_record/content_data_record.py`）—— 持久化层
 
 - `ContentCommonData`：link, id, main_title/sub_title, main_image/sub_images, view/favorite/comment_count, summary, description, publish_time/edited_time, main_owner_*, sub_owner_*。
 - `ContentDataRecord`：`_id=md5(raw_id)`、`iid`、`user_index/user_name/is_logged_in`、`system_version`、`mongodb_database_version`、`raw_id/raw_url/crawl_url/crawl_time/update_url/update_time`、`ects_0..ects_4`（5 个客户导出计数器）、`common: ContentCommonData`、`content: Dict[str, Any]`（动态业务 JSON，Product/Article/扩展无关）。
@@ -736,9 +828,9 @@ network_response_json_nodes: str = ""
 
 ---
 
-## 13. MongoDB / Redis 数据架构
+## 2. MongoDB / Redis 数据架构
 
-### 13.1 MongoDB
+### 2.1 MongoDB
 
 | 模块 | 类/函数 | 职责 |
 |---|---|---|
@@ -750,7 +842,7 @@ network_response_json_nodes: str = ""
 
 项目隔离：按**数据库名**。
 
-### 13.2 Redis
+### 2.2 Redis
 
 | 模块 | 类/函数 | 职责 |
 |---|---|---|
@@ -769,7 +861,7 @@ PostgreSQL：`database/postgresql/postgresql_client.py`、`postgresql_util.py` �
 
 ---
 
-## 14. Site / Item 项目架构
+## 3. Site / Item 项目架构
 
 - **`site/<id>/`**：CATE_LEVEL/CATE_LIST 项目根。目录名 `{main}-{sub}-{site}-{content}-{lang}` 由 `ProjectConfigLoader._parse_project_dir_name` 解析。布局：`script/script.txt`、`logs/`、`input/`、`user/user_pool.xlsx`、`output/{brand_dict, cate_level_index, cate_level_link, link}/`、`backup/{cate_level_index, cate_level_link}/`、`user/0/{cookie, local-storage, session-storage}/`、`login/*.py`（站点级登录/滑块代码）。示例：`site/1001-001-dangdang_com-product-zh_cn/`、`site/1051-001-shopee_tw-product-zh_tw/`。
 - **`item/<id>/`**：ITEM_DETAIL 项目根。布局：`cookies/<idx>_cookies.txt`、`input/item_list_link.txt`、`script/script.txt`、`user/user_pool.xlsx`、`logs/`。无 `.py`，业务由 `config/loader/item_detail/` + `processor/item_detail/` 承载。示例：`item/1051-001-taobao_com-product-zh_cn/`。
@@ -785,7 +877,7 @@ PostgreSQL：`database/postgresql/postgresql_client.py`、`postgresql_util.py` �
 
 ---
 
-## 15. 数据流分析
+## 4. 数据流分析
 
 以 CATE_LIST 为例（最完整数据流）：
 
@@ -846,7 +938,12 @@ PageNavigator.load(page_type="ITEM_DETAIL") + scroll_to_load_more
 
 ---
 
-## 16. 业务类型架构
+<a id="business"></a>
+# 五、业务、风控与模块关系
+
+---
+
+## 1. 业务类型架构
 
 | 业务类型 | 入口 | Runner | Processor | Parser | DB | 状态 |
 |---|---|---|---|---|---|---|
@@ -867,7 +964,7 @@ PageNavigator.load(page_type="ITEM_DETAIL") + scroll_to_load_more
 
 ---
 
-## 17. 异常 / 重试 / 风控架构
+## 2. 异常 / 重试 / 风控架构
 
 - `request/retry_manager.py: RetryManager.execute(func, max_retry=3, delay=0.0, randomize_delay=False, on_retry)` —— 通用异步重试，替代旧 Scrapy `ErrorRetryMiddleware`。docstring 警告：`PageNavigator.load` 已内置页面加载重试，包装它会致 9 次重试；`RetryManager` 仅用于业务流（登录/解析/写库）。
 - `utils/delay_manager.py: DelayManager.delay(seconds, randomize=True)`（jitter `[0.5x, 1.5x]`）/`delay_range(min, max)` —— `asyncio.sleep`，不阻塞事件循环。
@@ -891,7 +988,7 @@ PageNavigator.load(page_type="ITEM_DETAIL") + scroll_to_load_more
 
 ---
 
-## 18. 模块依赖关系
+## 3. 模块依赖关系
 
 真实依赖方向（基于 import 与实例化）：
 
@@ -927,9 +1024,9 @@ image_match  → cv2, numpy
 
 ---
 
-## 19. 核心模块与非核心模块划分
+## 4. 核心模块与非核心模块划分
 
-### 19.1 核心架构模块
+### 4.1 核心架构模块
 
 - `config/loader/`（`script_config`、`project_loader`、`item_detail/*`）—— 配置分发中枢
 - `resource/`（`pool_loader`、`resource_mapper`、`resource_allocator`、`browser_session_factory`）—— 资源调度
@@ -939,7 +1036,7 @@ image_match  → cv2, numpy
 - `database/mongodb/content_mongodb`、`database/redis/{cate_level,cate_list,content}_redis`、`database/mongodb/all_sequence_mongodb` —— 持久化与状态
 - `main/cli/`（`args_parser`、`runner_base`、`sort_spec`）—— CLI 与共享脚手架
 
-### 19.2 基础能力模块
+### 4.2 基础能力模块
 
 - `utils/`（`delay_manager`、`comment_cleaner`、`value_utils`、`export/`）
 - `fileio/`（`base_file`、`csv/json/jsonl/excel/txt_io`、`fileio_manager`、`file_backup`、`batch/`）
@@ -947,36 +1044,40 @@ image_match  → cv2, numpy
 - `mini_text/`、`image_match/`、`mouse_tracks/`、`captcha/`
 - `config/application/app_config`、`config/database/{mongodb,redis}_config`、`config/context/`、`config/backfill/`
 
-### 19.3 业务模块
+### 4.3 业务模块
 
 - `mini_cate/`（类目树归一算法）
 - `data/model/`、`data/loader/`、`data/backfill/`
 - `export/cate_level/`
 
-### 19.4 工具模块
+### 4.4 工具模块
 
 - `tools/project_tree`、`tools/count_python_lines`、`tools/export_custom_fields`（非运行期）
 
-### 19.5 站点项目（运行期数据 + 站点代码）
+### 4.5 站点项目（运行期数据 + 站点代码）
 
 - `site/<id>/`（script.txt + login/ + output/ + user/）
 - `item/<id>/`（cookies + input + script + user + logs）
 - `pool/*.xlsx`（资源池）
 
-### 19.6 历史/遗留/空占位
+### 4.6 历史/遗留/空占位
 
 - `scrapy.cfg`、`scrapy-playwright` 依赖、`twisted` 依赖（Scrapy 遗留，未启用）
 - `database/postgresql/*`（空文件）
 - `parser/item_detail/`、`resource/item_detail/`、`processor/content/`、`main/site/`（空目录）
 - `export/cate_level/cate_level_link_writer.py`、`image_match/edge/canny.py`、`image_match/feature/orb.py`、`mini_cate/cate_index.py`（空文件）
 - `processor/cate_level/cate_level_validator.py`、`cate_level_stats.py`、`cate_level_item.create_item()`（自述预留未接入）
-- `README.md`（已过时）
 - `prompt/`（设计草稿，非代码）
 - 排除目录（不进入报告主体）：`.git/`、`.idea/`、`.ruff_cache/`、`backup/`、`test/`、`tests/`、`DEL/`、`fingerprint_work/`
 
 ---
 
-## 20. 当前架构优点
+<a id="summary"></a>
+# 六、架构评价、展望与确认
+
+---
+
+## 1. 当前架构优点
 
 1. **配置驱动已落地**：`script.txt` + 三层变量替换 + `content_type` 多态 + 节点回填校验，站点差异集中配置化。代码依据：`config/loader/script_config.py`、`config/context/`、`config/backfill/`。
 2. **资源四层强绑定 + 职责切分**：User↔Browser↔Fingerprint↔IP 强约束（前 3 硬）；Allocator 决定 proxy（业务）、Factory 创建 Context（执行）分离。代码依据：`resource/__init__.py` 包文档、`resource/resource_mapper.py` 7 约束、`browser_session_factory.py` docstring lines 14-17。
@@ -991,9 +1092,9 @@ image_match  → cv2, numpy
 
 ---
 
-## 21. 当前架构问题与风险
+## 2. 当前架构问题与风险
 
-1. **README 严重过时**：描述旧 `user.txt`/`type-script.txt`/CSV 布局，与实际 `site/<id>`/`item/<id>` 编号项目模式不符，会误导 GitHub 新贡献者。建议：基于本报告重写 README。
+1. **README 已重写**（原「严重过时」已解决）：原描述旧 `user.txt`/`type-script.txt`/CSV 布局，已基于本报告重写为含分组编号与交叉引用的架构报告，不再误导新贡献者。
 2. **CateListProcessor._collect_cate_list_per_page 职责过载**：单方法承担 10+ 步骤（URL 规范化/风控/加载/滚动/分页/解析/三层去重/序列/写库/状态），可读性与可维护性差。建议：拆分为 `UrlNormalizer`/`RiskGuard`/`DedupChain`/`WriteSink` 等子组件，Processor 仅编排。
 3. **item_detail 与 cate 双项目根并行**：`ItemProjectConfigLoader`/`parse_item_detail_script_config`/`build_item_resource_context`/`ItemUserPoolLoader` 与 cate 侧并行存在，未充分复用，配置/资源/CLI 子树重复。docstring 解释了不复用原因（item 按 browser_index 查指纹），但仍存在重复维护成本。建议：评估抽象共同基类或共享 loader 入口。
 4. **空占位文件/目录较多且未标注**：`database/postgresql/*`、`parser/item_detail/`、`resource/item_detail/`、`processor/content/`、`main/site/`、若干 `_v1`/`_v2`/`_old` 文件并存。新贡献者难以判断哪些是活跃代码。建议：在 CONTRIBUTING 或目录 README 标注状态，或移至 `DEL/`。
@@ -1008,7 +1109,7 @@ image_match  → cv2, numpy
 
 ---
 
-## 22. 可扩展性分析
+## 3. 可扩展性分析
 
 扩展点与方式：
 
@@ -1023,21 +1124,21 @@ image_match  → cv2, numpy
 
 ---
 
-## 23. 项目架构成熟度评价
+## 4. 项目架构成熟度评价
 
 - **配置驱动**：成熟。三层变量替换 + 节点回填 + 校验闭环。
 - **资源隔离**：成熟。四层强绑定 + 反自动化 + 指纹深度对齐。
 - **持久化与去重**：成熟（CATE_LIST）。三层去重 + 原子序列 + 分片集合 + 检查点。
 - **业务编排**：CATE_LEVEL/CATE_LIST 成熟；ITEM_DETAIL 半成品（无解析）；DETAIL 仅配置。
 - **风控**：基础能力齐全（图像匹配/轨迹/熔断），但 AUTO 模式与占位桩未实现。
-- **工程化**：中等。`pyproject.toml` 不完整；README 过时；空占位与遗留代码多；无测试（`test/`/`tests/` 已排除但存在）；无 CI 配置。
-- **文档**：弱。仅有 `docs/Python-PlayWright-Web-项目总结.md` 与过时 README，缺架构文档与贡献指南。
+- **工程化**：中等。`pyproject.toml` 不完整；空占位与遗留代码多；无测试（`test/`/`tests/` 已排除但存在）；无 CI 配置。
+- **文档**：中。README 已重写为项目架构全面分析报告（含分组编号与交叉引用）；另有 `docs/Python-PlayWright-Web-项目总结.md`；仍缺贡献指南与用户级安装/配置文档。
 
 总体：**核心采集能力成熟，外围工程化与文档化不足**。适合作为内部框架演进为开源项目，但需先补文档、清理遗留、补元数据。
 
 ---
 
-## 24. GitHub 开源项目视角下的架构总结
+## 5. GitHub 开源项目视角下的架构总结
 
 开源视角优势：
 
@@ -1047,7 +1148,7 @@ image_match  → cv2, numpy
 
 开源视角需补：
 
-1. **README 重写**：基于本报告改写，含安装、env 配置、`pool/*.xlsx` 模板、`script.txt` 语法、启动命令、`site/<id>` 接入流程。
+1. **README 重写**（已完成）：已基于本报告重写为项目架构全面分析报告（含分组编号与交叉引用）；用户级安装/配置指南可另行补充。
 2. **LICENSE**：当前未见，开源前必须添加。
 3. **CONTRIBUTING / ARCHITECTURE.md**：指向本报告作为架构入口。
 4. **CI**：补 ruff lint + 基础 import 冒烟（当前无 `.github/`）。
@@ -1058,7 +1159,7 @@ image_match  → cv2, numpy
 
 ---
 
-## 25. 后续《核心模块详细设计分析》的建议范围
+## 6. 后续《核心模块详细设计分析》的建议范围
 
 按优先级建议：
 
@@ -1073,9 +1174,9 @@ image_match  → cv2, numpy
 
 ---
 
-## 26. 架构事实确认
+## 7. 架构事实确认
 
-### 26.1 已通过代码确认
+### 7.1 已通过代码确认
 
 - 项目基于 Playwright + `asyncio`，非 Scrapy 驱动（`docs/Python-PlayWright-Web-项目总结.md` + `requirements.txt` + 各 Runner `asyncio.run` + `BrowserSessionFactory` 使用 `playwright.async_api.async_playwright`）。
 - 三条业务管线 CATE_LEVEL/CATE_LIST/ITEM_DETAIL 各有独立 entry/Runner/Processor（`main/cate_level.py`、`main/cate_list.py`、`main/item_detail/item_detail.py` + 对应 `processor/<biz>/`）。
@@ -1098,20 +1199,20 @@ image_match  → cv2, numpy
 - Network Response 拦截当前为 config-only 非功能：`ItemDetailScriptConfig` 4 字段（`network_response_intercept_enable`/`_name`/`_regex`/`_json_nodes`）经 `item_detail_loader._process_item_detail_key` 解析进模型，但全代码库无任何消费方（`page.route`/`context.route`/`on("response")`/`on("request")`/`response.body`/`response.json` 在 processor/page/resource/config/main 中零命中）；loader 校验函数注释（`item_detail_loader.py:240-242`）自述拦截业务延后到「Processor/Parser 阶段」；`docs/Python-PlayWright-Web-项目总结.md:134` 佐证。
 - DETAIL 仅配置模型（`config/model/detail/*` 存在，无 `processor/detail/`/`parser/detail/`）。
 - 风控 AUTO 模式未实现 + `check_slider_captcha_dialog_show`/`check_slider_captcha_verified` 为 `return True` 占位（`cate_list_processor.py` lines 1986-2000）。
-- README 过时（`README.md` 描述 `user.txt`/`type-script.txt`/CSV，与 `site/<id>` 模式不符）。
+- README 已重写（原 `README.md` 描述 `user.txt`/`type-script.txt`/CSV，与 `site/<id>` 模式不符；已基于本报告重写为架构分析报告）。
 - `pyproject.toml` 仅 ruff 配置无 `[project]`（文件确认）。
 - `constants/` 无 `__init__.py`（文件系统确认）。
 - PostgreSQL 空文件占位（文件系统确认）。
 
-### 26.2 根据代码高度推断
+### 7.2 根据代码高度推断
 
 - 「通用爬虫框架 + 具体站点业务」架构已形成：框架核心目录均不引用具体站点，站点差异集中在 `site/<id>/script.txt` + `site/<id>/login/*.py`。推断依据：多个 `processor/`/`parser/`/`page/`/`resource/` 模块均接受 `script_config`/`resource_context` 参数，不硬编码站点。
 - `ContentDataRecord.content: Dict[str, Any]` 的设计意图是为内容类型扩展留口子：`ContentRecordBuilder` 仅在 `item.product is not None` 时填 `content.product`，结构上预留 article 与未来类型。推断依据：字段类型为开放 `Dict` 而非封闭 dataclass。
 - `request/RetryManager` 与 `PageNavigator.load` 的重试边界划分是有意为之：docstring 明确警告双重重试致 9 次，推断 RetryManager 定位为业务流重试。
 - item_detail 不复用 `ResourceAllocator` 的根本原因是查询键不同（`browser_index` vs `fingerprint_index`）：`build_item_resource_context` docstring 与代码体现此差异，推断为刻意设计而非遗漏。
-- Network Response 拦截的设计意图（master enable + 响应名标签 + URL 正则 + JSON 节点回退字符串 + 正则优先于 JSON_NODES）来自 `item_detail_loader.py:240-242` 注释，属「根据代码高度推断」的架构意图；落地形态（`page.route` vs `page.on("response")` 两方案）尚未在代码中确定，仅文档先行记录（见 §11.3.2）。
+- Network Response 拦截的设计意图（master enable + 响应名标签 + URL 正则 + JSON 节点回退字符串 + 正则优先于 JSON_NODES）来自 `item_detail_loader.py:240-242` 注释，属「根据代码高度推断」的架构意图；落地形态（`page.route` vs `page.on("response")` 两方案）尚未在代码中确定，仅文档先行记录（见 §三.5.3.2 架构计划）。
 
-### 26.3 当前无法确认
+### 7.3 当前无法确认
 
 - `ects_0..ects_4`（`ContentDataRecord` 的 5 个客户导出计数器）的具体业务含义与消费方：代码中未见写入逻辑，仅作为字段存在。
 - `PRO_COMMON_MAIN_OWNER` 等 `program_vars` 的运行期消费链路：`combine-link-pending.md` 记忆条目提示「`_COMBINE` 已接入加载层，运行期消费与 `PRO_COMMON_MAIN_OWNER` 变量待下一步」，即部分 `_COMBINE` 运行期消费尚未完成。

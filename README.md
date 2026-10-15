@@ -84,15 +84,15 @@ root
 </p>
 
 
-### 2.2 配置及数据库
+### 2.2 数据库及脚本
 
 演示内容：
+- Redis
+- MongoDb
+
 - 脚本配置文件	（路径：\site\[采集项目目录]\script\script.txt ）
 - 分类树		（路径：\site\[采集项目目录]\output\cate_level_index\cate_level_index.txt ）
 - 分类链接『含分类路径』	（路径：\site\[采集项目目录]\output\cate_level_link\cate_level_link.txt ）
-
-- Redis
-- MongoDb
 
 （此视频：以 shopee.tw 为例子）
 
@@ -101,8 +101,8 @@ root
 </p>
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=LYvYUWEOshQ">
-    <img src="https://i9.ytimg.com/vi_webp/LYvYUWEOshQ/mq3.webp?sqp=COSQqdYG-oaymwEmCMACELQB8quKqQMa8AEB-AHUBoAC4AOKAgwIABABGE8gVihlMA8=&rs=AOn4CLCGxPzw2lCPsHI1T-jOgdAAKxj3JA" width="800">
+  <a href="https://www.youtube.com/watch?v=unUX4w0JnwY">
+    <img src="https://img.youtube.com/vi/unUX4w0JnwY/maxresdefault.jpg" width="800">
   </a>
 </p>
 
